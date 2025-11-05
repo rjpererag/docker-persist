@@ -10,11 +10,19 @@ from ..utils import logger, set_timer, FileManager
 
 class FakeAPI:
 
-    def __init__(self, timer: tuple = (1, 2)):
+    def __init__(
+            self,
+            root_dir: str,
+            timer: tuple = (1, 2)
+    ) -> None:
+
         self.now_str = datetime.now().strftime("%Y%m%d%H%M%S")
+
         self.api = Fetcher()
+
         self.file_manager = FileManager()
-        self.filesystem = self.file_manager.build_filesystem()
+        self.filesystem = self.file_manager.build_filesystem(root_dir=root_dir)
+
         self.timer = set_timer(min_time=timer[0], max_time=timer[1])
         self.cache = self._create_cache()
 

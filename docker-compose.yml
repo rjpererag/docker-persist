@@ -7,6 +7,10 @@ services:
       - ./data:/app/data
     environment:
       - DATA_DIR=/app/data
+      - TIMER=3,4
+      - ROOT_DIR=results3
+      - SIZE=5
+      - FORMAT=CSV
     container_name: api-service
     depends_on:
       - init
