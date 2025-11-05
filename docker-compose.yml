@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/api/Dockerfile
+    volumes:
+      - ./data:/app/data
+    environment:
+      - DATA_DIR=/app/data
+    container_name: api-service
+    depends_on:
+      - init
+
+  init:
+    build:
+      context: .
+      dockerfile: src/init/Dockerfile
+    container_name: init-service
