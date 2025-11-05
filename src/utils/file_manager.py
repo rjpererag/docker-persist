@@ -3,12 +3,15 @@ import pandas as pd
 import pickle
 import json
 
-from typing import Any, Callable
-
 from .logger import logger
 
 
 class FileManager:
+    """
+    File manager that provides methods to save data in json, csv, xlsx and pkl formats.
+    Includes logic to set up a directory tree which holds dedicated directories for
+    each of the mentioned extensions. Example (results/json or results/csv))
+    """
 
     @staticmethod
     def _review_extension(path: str, extension: str) -> str:
