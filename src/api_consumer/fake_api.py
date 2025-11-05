@@ -1,19 +1,21 @@
+import random
 import pandas as pd
 from datetime import datetime
 from tqdm import tqdm
+from time import sleep
 
 from .data_fetcher import Fetcher
-from ..utils import logger, FileManager
+from ..utils import logger, set_timer, FileManager
 
 
 class FakeAPI:
 
-    def __init__(self):
+    def __init__(self, timer: tuple = (1, 2)):
         self.now_str = datetime.now().strftime("%Y%m%d%H%M%S")
         self.api = Fetcher()
         self.file_manager = FileManager()
         self.filesystem = self.file_manager.build_filesystem()
-
+        self.timer = set_timer(min_time=timer[0], max_time=timer[1])
         self.cache = self._create_cache()
 
     @staticmethod
@@ -73,6 +75,9 @@ class FakeAPI:
                     self.fetch()
                 except Exception as e:
                     logger.error(f"Error collecting data. id = {i}. {str(e)}")
+                finally:
+                    sleep(random.uniform(self.timer[0], self.timer[1]))
+
 
     def fetch_multiple(
             self,
