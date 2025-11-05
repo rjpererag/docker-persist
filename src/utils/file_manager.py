@@ -15,7 +15,7 @@ class FileManager:
 
     @staticmethod
     def _review_extension(path: str, extension: str) -> str:
-        if extension not in path:
+        if f".{extension}" not in path:
             return f"{path}.{extension}"
         return path
 
@@ -23,7 +23,7 @@ class FileManager:
         try:
             path = self._review_extension(path=path, extension="json")
             logger.info("Saving json file at %s", path)
-            if (not isinstance(data, list)) or (not isinstance(data, dict)):
+            if (not isinstance(data, list)) and (not isinstance(data, dict)):
                 logger.error(f"Data is not a list or dict: {type(data)}")
                 return
 

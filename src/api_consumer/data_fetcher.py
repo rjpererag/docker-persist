@@ -1,14 +1,13 @@
 import random
 from datetime import datetime
 
-from ..utils import logger, FileManager
 from .world_cities_data import world_cities_data, world_cities
 
 
 class Fetcher:
 
     def __init__(self):
-        self.file_manager = FileManager()
+        ...
 
     @staticmethod
     def _add_population_noise(population) -> int:
