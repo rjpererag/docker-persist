@@ -1,0 +1,42 @@
+# Python dependencies
+**/__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+venv
+.venv
+pip-log.txt
+pip-delete-this-file.txt
+pip.log
+.tox
+.coverage
+.cache
+.pytest_cache
+htmlcov/
+.hypothesis/
+test/__pycache__
+*.egg-info/
+.installed.txt
+
+# Editors/IDEs
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Other common files/directories
+# Ignore git files/directories (handled by .gitignore, but good practice here too)
+.git
+.gitignore
+README.md
+LICENSE
+
+# Ignore Docker build context files
+Dockerfile
+docker-compose.yml
