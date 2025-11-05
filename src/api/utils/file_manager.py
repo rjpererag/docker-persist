@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import pickle
 import json
+from pathlib import Path
 
 from .logger import logger
 
@@ -12,6 +13,10 @@ class FileManager:
     Includes logic to set up a directory tree which holds dedicated directories for
     each of the mentioned extensions. Example (results/json or results/csv))
     """
+
+    def __init__(self):
+        self.base_dir = Path(os.getenv('DATA_DIR', './data'))
+        self.base_dir.mkdir(parents=True, exist_ok=True)
 
     @staticmethod
     def _review_extension(path: str, extension: str) -> str:
@@ -32,7 +37,6 @@ class FileManager:
         except Exception as e:
             logger.error(f"Failed saving {path}: {str(e)}")
 
-
     def save_csv(self, path: str, data: pd.DataFrame, index: bool = False) -> None:
         try:
             path = self._review_extension(path=path, extension="csv")
@@ -44,7 +48,6 @@ class FileManager:
             data.to_csv(path, index=index)
         except Exception as e:
             logger.error(f"Failed saving {path}: {str(e)}")
-
 
     def save_xlsx(self, path: str, data: pd.DataFrame, index: bool = False) -> None:
         try:
@@ -83,8 +86,9 @@ class FileManager:
         else:
             logger.info(f"Skipping {dir_path} already exists")
 
-    @staticmethod
-    def _get_dir_tree(root_dir: str) -> dict:
+    def _get_dir_tree(self, root_dir: str) -> dict:
+        root_dir = self.base_dir / root_dir
+
         extensions = ["json", "csv", "xlsx", "pkl"]
         dirs = {"root_dir": root_dir}
 
